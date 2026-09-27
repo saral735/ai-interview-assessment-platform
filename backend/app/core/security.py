@@ -1,7 +1,6 @@
-
 from datetime import datetime, timedelta, timezone
 
-from fastapi import HTTPException, status
+from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jose import JWTError, jwt
 
@@ -56,3 +55,24 @@ def verify_access_token(token: str):
             detail="Invalid or expired token"
         )
 
+
+def require_role(required_role: str):
+
+    def role_checker(
+        credentials: HTTPAuthorizationCredentials = Depends(security)
+    ):
+        payload = verify_access_token(
+            credentials.credentials
+        )
+
+        user_role = payload.get("role")
+
+        if user_role != required_role:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Access denied"
+            )
+
+        return payload
+
+    return role_checker
