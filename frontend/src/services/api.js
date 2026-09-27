@@ -1,5 +1,4 @@
 const API_BASE_URL = "https://ai-interview-assessment-platform.onrender.com";
-
 export async function getJobs(token) {
   const response = await fetch(`${API_BASE_URL}/jobs/`, {
     headers: {
