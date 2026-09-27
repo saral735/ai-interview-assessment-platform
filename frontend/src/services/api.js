@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://127.0.0.1:8000";
+const API_BASE_URL = "https://ai-interview-assessment-platform.onrender.com";
 
 export async function getJobs(token) {
   const response = await fetch(`${API_BASE_URL}/jobs/`, {
