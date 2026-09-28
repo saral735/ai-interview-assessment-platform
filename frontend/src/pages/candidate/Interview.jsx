@@ -1,6 +1,10 @@
+
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "../../App.css";
+
+const API_BASE_URL =
+  "https://ai-interview-assessment-platform.onrender.com";
 
 function Interview() {
   const { interviewId } = useParams();
@@ -20,7 +24,7 @@ function Interview() {
 
   const fetchNextQuestion = async () => {
     const response = await fetch(
-      `http://127.0.0.1:8000/interviews/${interviewId}/next-question`
+      `${API_BASE_URL}/interviews/${interviewId}/next-question`
     );
 
     const data = await response.json();
@@ -240,7 +244,7 @@ function Interview() {
 
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/interviews/${interviewId}/questions/${question.id}/answer?answer_text=${encodeURIComponent(
+        `${API_BASE_URL}/interviews/${interviewId}/questions/${question.id}/answer?answer_text=${encodeURIComponent(
           answer
         )}`,
         {
@@ -288,7 +292,7 @@ function Interview() {
 
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/interviews/${interviewId}/complete`,
+        `${API_BASE_URL}/interviews/${interviewId}/complete`,
         {
           method: "POST",
         }
@@ -482,3 +486,4 @@ function Interview() {
 }
 
 export default Interview;
+
